@@ -16,6 +16,12 @@ class StudUpdateController extends Controller
       $users = DB::select('select * from student where id = ?',[$id]);
       return view('stud_update',['users'=>$users]);
    }
+
+     public function showEditForm($id)
+    {
+        $user = DB::selectOne('select * from student where id = ?', [$id]);
+        return view('stud_edit', ['user' => $user]);
+    }
     public function update(Request $request, $id)
     {
         $name = $request->input('stud_name');
@@ -29,6 +35,7 @@ class StudUpdateController extends Controller
         echo "Record updated successfully.<br/>";
         echo '<a href="/edit-records">Click Here</a> to go back.';
     }
+
 
     public function destroy($id) {
       DB::delete('delete from student where id = ?',[$id]);
